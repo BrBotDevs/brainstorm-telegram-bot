@@ -1,0 +1,22 @@
+{
+  "name": "brainstorm-telegram-bot",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "description": "A bot that collects and store all #brainstorm messages it receives",
+  "repository": "https://github.com/BrBotDevs/brainstorm-telegram-bot",
+  "author": "Rogério Munhoz (@rjmunhoz)",
+  "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-sourcemaps": "^2.6.0"
+  },
+  "dependencies": {
+    "dotenv-safe": "^4.0.4",
+    "mongoose": "^4.9.7",
+    "node-telegram-bot-api": "^0.27.1"
+  }
+}
