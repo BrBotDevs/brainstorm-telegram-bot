@@ -19,6 +19,10 @@
         "semi": [
             "error",
             "always"
+        ],
+        "comma-style": [
+            "warn",
+            "first"
         ]
     }
 }
