@@ -4,7 +4,7 @@ const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const sourcemaps = require('gulp-sourcemaps');
 
-gulp.task('default', ['clear', 'compile']);
+gulp.task('default', ['clean', 'compile']);
 
 gulp.task('clean', done => {
     del.sync('dist');
@@ -19,7 +19,7 @@ gulp.task('eslint', () => {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('compile', ['clean', 'estlin'], () => {
+gulp.task('compile', ['clean', 'eslint'], () => {
     gulp.src('src/**/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
