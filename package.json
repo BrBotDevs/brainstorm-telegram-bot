@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
-  "description": "A bot that collects and store all #brainstorm messages it receives",
+  "description": "A bot that collects and stores any #brainstorm messages it receives",
   "repository": "https://github.com/BrBotDevs/brainstorm-telegram-bot",
   "author": "Rogério Munhoz (@rjmunhoz)",
   "devDependencies": {
