@@ -12,6 +12,12 @@ const setUpBot = bot => {
                 .then(response => {
                     bot.sendMessage(msg.chat.id, response.text, response.options)
                         .catch(err => error(pj.render(err)));
+                })
+                .catch(err => {
+                    bot.sendMessage(msg.chat.id, `Erro ao executar comando ${command.name}:\n\`${pj.render(err)}\``, {
+                        parse_mode: 'Markdown'
+                    })
+                        .catch(err => error(pj.render(err)));
                 });
         });
         return command.name;

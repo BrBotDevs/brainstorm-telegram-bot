@@ -3,18 +3,18 @@ import pj from 'prettyjson';
 
 export default {
     regex: /.*#brainstorm.*/
-    , name: 'Brainstorm'
+    , name: '#brainstorm'
     , run: msg => new Promise((res, rej) => {
         idea.insert({
             id: msg.message_id
             , userId: msg.from.id
             , chatId: msg.chat.id
-            , text: msg.text
+            , text: msg.text.replace('#brainstorm', '').trim()
             , status: 'Submited'
             , lastStatusChangeDate: new Date()
         }).then(saved => {
             res({
-                text: `Ideia #${saved.id} salva com sucesso!`
+                text: `Ideia #i${saved.id} salva com sucesso!`
                 , options: {
                     reply_to_message_id: msg.message_id
                 }
