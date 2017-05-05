@@ -1,7 +1,10 @@
 require('dotenv-safe').load();
 import TelegramBot from 'node-telegram-bot-api';
 import { error, info } from './lib/utils/log';
-import commands from './lib/commands'; //eslint-disable-line
+import commands from './lib/commands';
+import db from './lib/db/index';
+
+db.connect();
 
 const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {
     polling: true

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { info, log, error } from '../utils/log';
 import idea from './entities/idea';
+import pj from 'prettyjson';
 
 const buildConnString = (options = {}) => {
     const USER = options.USER || process.env.MONGO_USER;
@@ -19,26 +20,33 @@ const buildConnString = (options = {}) => {
     return _connString.join('');
 };
 
-const connString = buildConnString();
+const connect = () => {
+    const connString = buildConnString();
 
-mongoose.Promise = global.Promise;
-mongoose.connect(connString);
+    mongoose.Promise = global.Promise;
 
-mongoose.connection.on('error', function (err) {
-    error('Mongoose default connection error: ' + err);
-});
-mongoose.connection.on('disconnected', function () {
-    log('Mongoose default connection disconnected');
-});
-mongoose.connection.on('open', function () {
-    info('Mongoose default connection is open');
-});
+    mongoose.connect(connString);
 
-process.on('SIGINT', function () {
-    mongoose.connection.close(function () {
-        log('Mongoose default connection disconnected through app termination');
-        process.exit(0);
+    mongoose.connection.on('error', function (err) {
+        error('Mongoose default connection error: ' + err);
     });
-});
+    mongoose.connection.on('disconnected', function () {
+        log('Mongoose default connection disconnected');
+    });
+    mongoose.connection.on('open', function () {
+        info('Mongoose default connection is open');
+    });
+
+    process.on('SIGINT', function () {
+        mongoose.connection.close(function () {
+            log('Mongoose default connection disconnected through app termination');
+            process.exit(0);
+        });
+    });
+};
+
+export default {
+    connect
+};
 
 export { buildConnString, idea };
