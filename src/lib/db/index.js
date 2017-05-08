@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { info, log, error } from '../utils/log';
 import idea from './entities/idea';
-import pj from 'prettyjson';
 
 const buildConnString = (options = {}) => {
     const USER = options.USER || process.env.MONGO_USER;

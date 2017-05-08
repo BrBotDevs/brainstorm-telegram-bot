@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { info, error } from './utils/log';
 import pj from 'prettyjson';
+import CommonUtils from './utils/user';
 
 const commands = fs.readdirSync(`${__dirname}/commands`)
     .map(x => require(`${__dirname}/commands/${x}`).default);
@@ -8,7 +9,8 @@ const commands = fs.readdirSync(`${__dirname}/commands`)
 const setUpBot = bot => {
     const names = commands.map(command => {
         bot.onText(command.regex, (msg, match) => {
-            command.run(msg, match)
+            const commonUtils = new CommonUtils(bot, msg.chat.id);
+            command.run(msg, match, commonUtils)
                 .then(response => {
                     bot.sendMessage(msg.chat.id, response.text, response.options)
                         .catch(err => error(pj.render(err)));

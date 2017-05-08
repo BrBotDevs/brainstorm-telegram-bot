@@ -1,6 +1,4 @@
 import { idea } from '../db';
-import { log } from '../utils/log';
-import pj from 'prettyjson';
 
 export default {
     regex: /\/ideas/
