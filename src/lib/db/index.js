@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { info, log, error } from '../utils/log';
-import idea from './entities/idea';
+import idea from './controllers/idea';
 
 const buildConnString = (options = {}) => {
     const USER = options.USER || process.env.MONGO_USER;

@@ -9,7 +9,7 @@ const jsonSchema = {
     , chatId: Number
     , text: String
     , dateRegistered: { type: Date, default: Date.now }
-    , status: String
+    , status: Number
     , lastStatusChangeDate: Date
 };
 

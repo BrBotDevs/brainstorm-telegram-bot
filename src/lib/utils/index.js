@@ -1,4 +1,7 @@
-import UserUtils, { Permissions } from './user';
+import UserUtils from './user';
+import Permissions from './permissions';
+import Status from './status';
+import * as Db from '../db';
 
 export default class CommonUtils {
     constructor(bot, chat_id) {
@@ -6,6 +9,8 @@ export default class CommonUtils {
         this._chat_id = chat_id;
         this._userUtils = new UserUtils(bot, chat_id);
         this._permissions = Permissions;
+        this._status = Status;
+        this._db = Db;
     }
 
     get userUtils() {
@@ -14,6 +19,14 @@ export default class CommonUtils {
 
     get permissions() {
         return this._permissions;
+    }
+
+    get status() {
+        return this._status;
+    }
+
+    get db() {
+        return this._db;
     }
 
 }
