@@ -4,13 +4,13 @@ import pj from 'prettyjson';
 export default {
     regex: /.*#brainstorm.*/
     , name: '#brainstorm'
-    , run: msg => new Promise((res, rej) => {
+    , run: (msg, match, utils) => new Promise((res, rej) => {
         idea.insert({
             id: msg.message_id
             , userId: msg.from.id
             , chatId: msg.chat.id
             , text: msg.text.replace('#brainstorm', '').trim()
-            , status: 'Submited'
+            , status: utils.status.SUBMITED
             , lastStatusChangeDate: new Date()
         }).then(saved => {
             res({
