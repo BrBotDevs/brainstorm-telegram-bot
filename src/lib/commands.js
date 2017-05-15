@@ -9,7 +9,7 @@ const commands = fs.readdirSync(`${__dirname}/commands`)
 const setUpBot = bot => {
     const names = commands.map(command => {
         bot.onText(command.regex, (msg, match) => {
-            const commonUtils = new CommonUtils(bot, msg.chat.id);
+            const commonUtils = new CommonUtils(bot, msg);
             command.run(msg, match, commonUtils)
                 .then(response => {
                     bot.sendMessage(msg.chat.id, response.text, response.options)

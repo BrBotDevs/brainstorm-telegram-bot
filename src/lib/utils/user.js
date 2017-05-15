@@ -2,9 +2,10 @@ import { idea } from '../db';
 
 export default class UserUtils {
 
-    constructor(bot, chat_id) {
+    constructor(bot, msg) {
         this._bot = bot;
-        this._chat_id = chat_id;
+        this._chat_id = msg.chat.id;
+        this._msg = msg;
     }
 
     get bot() {
@@ -33,9 +34,11 @@ export default class UserUtils {
 
     isAdmin(user_id) {
         return new Promise((res, rej) => {
-            this.getAdminIds()
-                .then(ids => res(ids.includes(user_id)))
-                .catch(rej);
+            if (this._msg.chat.type == 'private') res(true);
+            else
+                this.getAdminIds()
+                    .then(ids => res(ids.includes(user_id)))
+                    .catch(rej);
         });
     }
 

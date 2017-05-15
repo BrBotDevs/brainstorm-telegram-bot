@@ -4,13 +4,14 @@ import Status from './status';
 import * as Db from '../db';
 
 export default class CommonUtils {
-    constructor(bot, chat_id) {
+    constructor(bot, msg) {
         this._bot = bot;
-        this._chat_id = chat_id;
-        this._userUtils = new UserUtils(bot, chat_id);
+        this._chat_id = msg.chat.id;
+        this._userUtils = new UserUtils(bot, msg);
         this._permissions = Permissions;
         this._status = Status;
         this._db = Db;
+        this._chattype = msg.chat.type;
     }
 
     get userUtils() {
@@ -29,4 +30,11 @@ export default class CommonUtils {
         return this._db;
     }
 
+    get chatType() {
+        return this._chattype;
+    }
+
+    get msg() {
+        return this._msg;
+    }
 }
