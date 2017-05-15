@@ -10,7 +10,7 @@ export default {
         utils.userUtils.hasPermission(utils.permissions.MODERATE, user_id, idea_id)
             .then(result => {
                 if (result) {
-                    idea.select({ ìd: idea_id })
+                    idea.select({ id: idea_id })
                         .then(i => {
                             i.status = utils.status.APPROVED;
                             i.lastStatusChangeDate = new Date();
