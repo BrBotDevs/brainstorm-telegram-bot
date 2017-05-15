@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { info, error } from './utils/log';
 import pj from 'prettyjson';
-import CommonUtils from './utils/user';
+import CommonUtils from './utils';
 
 const commands = fs.readdirSync(`${__dirname}/commands`)
     .map(x => require(`${__dirname}/commands/${x}`).default);
