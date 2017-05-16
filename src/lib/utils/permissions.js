@@ -12,11 +12,11 @@ export default class Permissions {
             userUtils.isCreatorOf(user_id, idea_id)
                 .then(result => {
                     if (result)
+                        res(true);
+                    else
                         userUtils.isAdmin(userUtils.chat_id, user_id)
                             .then(result => res(result))
                             .catch(rej);
-                    else
-                        res(false);
                 })
                 .catch(rej);
         });

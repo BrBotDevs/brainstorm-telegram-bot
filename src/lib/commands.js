@@ -45,7 +45,13 @@ const setUpBot = bot => {
                 .catch(err => sendErr(bot, msg.chat.id, '/help', err))
                 .catch(logErr);
         else {
-            bot.sendMessage(msg.from.id, text)
+            bot.sendMessage(msg.from.id, text, { parse_mode: 'Markdow' })
+                .then(() => {
+                    bot.sendMessage(msg.chat.id, 'Te chamei no privado :D', {
+                      reply_to_message_id: msg.chat.id
+                    })
+                    .catch(logErr);
+                })
                 .catch(() => {
                     bot.sendMessage(msg.chat.id, 'Me chame no privado primeiro!', { parse_mode: 'Markdown' })
                         .catch(err => sendErr(bot, msg.chat.id, '/help', err))
@@ -54,10 +60,10 @@ const setUpBot = bot => {
         }
     });
 
-    bot.onText(/.*/, msg => {
-        bot.sendMessage(msg.chat.id, 'Desculpa, não entendi. Se precisar de ajuda, digite /help!')
-            .catch(logErr);
-    });
+//    bot.onText(/.*/, msg => {
+//        bot.sendMessage(msg.chat.id, 'Desculpa, não entendi. Se precisar de ajuda, digite /help!')
+//            .catch(logErr);
+//    });
 
     info(`Comandos carregados: ${names.join(', ')}`);
 };

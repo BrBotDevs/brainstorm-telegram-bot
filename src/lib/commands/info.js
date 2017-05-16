@@ -2,7 +2,7 @@ const buildText = (idea, utils) => {
     const text = [];
     text.push(`Ideia #i${idea.id}:`);
     text.push(`*Texto*: \`${idea.text}\``);
-    text.push(`*Autor*: User \`${idea.userId}\´`);
+    text.push(`*Autor*: User \`${idea.userId}\``);
     text.push(`*Status*: ${utils.status.getText(idea.status)}`);
     return text.join('\n');
 };
@@ -27,6 +27,6 @@ export default {
                     }
                 });
             })
-            .chat(rej);
+            .catch(rej);
     })
 };
