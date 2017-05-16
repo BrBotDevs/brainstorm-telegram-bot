@@ -3,6 +3,8 @@ import { idea } from '../db';
 export default {
     regex: /\/ideas/
     , name: '/ideas'
+    , help: 'Lista todas as idéias cadastradas para a conversa'
+    , detailedHelp: 'Uso: `/ideas`'
     , run: msg => new Promise((res, rej) => {
         idea.getForChat(msg.chat.id)
             .then(ideias => {

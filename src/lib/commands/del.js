@@ -3,6 +3,8 @@ import { idea } from '../db';
 export default {
     regex: /\/del #i(\d+)/i
     , name: '/del'
+    , help: 'Exclui a ideia'
+    , detailedHelp: 'Uso: `/del #i[número da ideia]`'
     , run: (msg, match, utils) => new Promise((res, rej) => {
         const chat_id = msg.chat.id;
         const user_id = msg.from.id;

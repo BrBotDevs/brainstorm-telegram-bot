@@ -8,6 +8,7 @@ db.connect();
 
 const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {
     polling: true
+    , onlyFirstMatch: true
 });
 
 bot

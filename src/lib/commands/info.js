@@ -10,6 +10,8 @@ const buildText = (idea, utils) => {
 export default {
     regex: /\/info #i(\d+)/i
     , name: '/info'
+    , help: 'Mostra informações detalhadas sobre a ideia'
+    , detailedHelp: 'Uso: `/info #i[número da ideia]`'
     , run: (msg, match, utils) => new Promise((res, rej) => {
         const chat_id = msg.chat.id;
         const user_id = msg.from.id;

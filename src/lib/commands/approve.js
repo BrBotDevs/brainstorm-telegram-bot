@@ -3,6 +3,8 @@ import { idea } from '../db';
 export default {
     regex: /\/approve #i(\d+)/i
     , name: '/approve'
+    , help: 'Aprova a ideia'
+    , detailedHelp: 'Uso: `/approve #i[número da ideia]`'
     , run: (msg, match, utils) => new Promise((res, rej) => {
         const user_id = msg.from.id;
         const idea_id = match[1];

@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "go": "gulp && npm start",
-    "update": "git pul && gulp"
+    "update": "git pull && gulp",
+    "debug": "node --inspect-brk dist/index.js"
   },
   "devDependencies": {
     "babel-preset-env": "^1.4.0",

@@ -4,6 +4,8 @@ import pj from 'prettyjson';
 export default {
     regex: /.*#brainstorm.*/
     , name: '#brainstorm'
+    , help: 'Tag para marcação de ideias'
+    , detailedHelp: 'Adicionar a tag #brainstorm a qualquer mensagem, irá marca-la como uma ideia, e armazena-la no banco de dados'
     , run: (msg, match, utils) => new Promise((res, rej) => {
         idea.insert({
             id: msg.message_id

@@ -2,7 +2,9 @@ import { idea } from '../db';
 
 export default {
     regex: /\/edit #i(\d+) (.*)/i
-    , name: '/approve'
+    , name: '/edit'
+    , help: 'Edit a ideia'
+    , detailedHelp: 'Uso: `/edit #i[número da ideia] [novo texto]`'
     , run: (msg, match, utils) => new Promise((res, rej) => {
         const user_id = msg.from.id;
         const idea_id = match[1];
