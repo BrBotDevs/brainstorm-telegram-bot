@@ -1,11 +1,12 @@
-import { idea } from '../db';
+import { user, idea } from '../db';
 
 export default class UserUtils {
 
-    constructor(bot, msg) {
+    constructor(bot, msg, dbEntity) {
         this._bot = bot;
         this._chat_id = msg.chat.id;
         this._msg = msg;
+        this._db_entity = dbEntity;
     }
 
     get bot() {
@@ -14,6 +15,39 @@ export default class UserUtils {
 
     get chat_id() {
         return this._chat_id;
+    }
+
+    get id() {
+        return this._db_entity.id;
+    }
+
+    get name() {
+        return this._db_entity.name;
+    }
+
+    get last_name() {
+        return this._db_entity.last_name;
+    }
+
+    get username() {
+        return this._db_entity.username;
+    }
+
+    get readableId() {
+        return self.generateReadableId(this._db_entity);
+    }
+
+    getReadableId(user_id) {
+        return new Promise((res, rej) => {
+            user.select({
+                id: user_id
+            })
+                .then(user => {
+                    if (user) res(self.generateReadableId(user));
+                    else res(`User ${user_id}`);
+                })
+                .catch(rej);
+        });
     }
 
     getAdmins() {
@@ -64,4 +98,32 @@ export default class UserUtils {
     hasPermission(permission, user_id, idea_id) {
         return permission(user_id, idea_id, this);
     }
+
+    static generateReadableId(entity) {
+        return entity.username
+            || `${entity.name}${entity.last_name ? ` ${entity.last_name}` : ''}`;
+    }
+
+    static getInstance(bot, msg) {
+        return new Promise((res, rej) => {
+            user.select({ id: msg.from.id })
+                .then(_user => {
+                    if (_user)
+                        res(new UserUtils(bot, msg, _user));
+                    else
+                        user.insert({
+                            id: msg.from.id
+                            , name: msg.from.first_name
+                            , last_name: msg.from.last_name
+                            , username: msg.from.username
+                        })
+                            .then(entity => {
+                                res(new UserUtils(bot, msg, entity));
+                            })
+                            .catch(rej);
+                })
+                .catch(rej);
+        });
+    }
+
 }

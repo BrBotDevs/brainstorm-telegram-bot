@@ -25,13 +25,17 @@ const getDetailedHelp = (commandName) => commands.filter(x => checkName(x.name, 
 const setUpBot = bot => {
     const names = commands.map(command => {
         bot.onText(command.regex, (msg, match) => {
-            const commonUtils = new CommonUtils(bot, msg);
-            command.run(msg, match, commonUtils)
-                .then(response => {
-                    bot.sendMessage(msg.chat.id, response.text, response.options)
+            CommonUtils.getInstance(bot, msg)
+                .then(commonUtils => {
+                    command.run(msg, match, commonUtils)
+                        .then(response => {
+                            bot.sendMessage(msg.chat.id, response.text, response.options)
+                                .catch(logErr);
+                        })
+                        .catch(err => sendErr(bot, msg.chat.id, command.name, err))
                         .catch(logErr);
                 })
-                .catch(err => sendErr(bot, msg.chat.id, command.name, err))
+                .catch(err => sendErr(bot, msg.chat.id, '/help', err))
                 .catch(logErr);
         });
         return command.name;
@@ -48,9 +52,9 @@ const setUpBot = bot => {
             bot.sendMessage(msg.from.id, text, { parse_mode: 'Markdow' })
                 .then(() => {
                     bot.sendMessage(msg.chat.id, 'Te chamei no privado :D', {
-                      reply_to_message_id: msg.chat.id
+                        reply_to_message_id: msg.chat.id
                     })
-                    .catch(logErr);
+                        .catch(logErr);
                 })
                 .catch(() => {
                     bot.sendMessage(msg.chat.id, 'Me chame no privado primeiro!', { parse_mode: 'Markdown' })
@@ -60,10 +64,10 @@ const setUpBot = bot => {
         }
     });
 
-//    bot.onText(/.*/, msg => {
-//        bot.sendMessage(msg.chat.id, 'Desculpa, não entendi. Se precisar de ajuda, digite /help!')
-//            .catch(logErr);
-//    });
+    //    bot.onText(/.*/, msg => {
+    //        bot.sendMessage(msg.chat.id, 'Desculpa, não entendi. Se precisar de ajuda, digite /help!')
+    //            .catch(logErr);
+    //    });
 
     info(`Comandos carregados: ${names.join(', ')}`);
 };

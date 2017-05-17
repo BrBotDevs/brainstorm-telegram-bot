@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { info, log, error } from '../utils/log';
 import idea from './controllers/idea';
+import user from './controllers/user';
 
 const buildConnString = (options = {}) => {
     const USER = options.USER || process.env.MONGO_USER;
@@ -48,4 +49,4 @@ export default {
     connect
 };
 
-export { buildConnString, idea };
+export { buildConnString, idea, user };

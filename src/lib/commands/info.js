@@ -1,11 +1,15 @@
-const buildText = (idea, utils) => {
-    const text = [];
-    text.push(`Ideia #i${idea.id}:`);
-    text.push(`*Texto*: \`${idea.text}\``);
-    text.push(`*Autor*: User \`${idea.userId}\``);
-    text.push(`*Status*: ${utils.status.getText(idea.status)}`);
-    return text.join('\n');
-};
+const buildText = (idea, utils) => new Promise((res, rej) => {
+    utils.user.getReadableId(idea.user_id)
+        .then(readableId => {
+            const text = [];
+            text.push(`Ideia #i${idea.id}:`);
+            text.push(`*Texto*: \`${idea.text}\``);
+            text.push(`*Autor*: ${readableId}`);
+            text.push(`*Status*: ${utils.status.getText(idea.status)}`);
+            res(text.join('\n'));
+        })
+        .catch(rej);
+});
 
 export default {
     regex: /\/info #i(\d+)/i
@@ -17,15 +21,20 @@ export default {
         const user_id = msg.from.id;
         const idea_id = match[1];
 
+
         utils.db.idea.select({ id: idea_id, chatId: chat_id, userId: user_id })
             .then(i => {
-                res({
-                    text: buildText(i, utils)
-                    , options: {
-                        parse_mode: 'Markdown'
-                        , reply_to_message_id: msg.message_id
-                    }
-                });
+                buildText(i, utils)
+                    .then(text => {
+                        res({
+                            text
+                            , options: {
+                                parse_mode: 'Markdown'
+                                , reply_to_message_id: msg.message_id
+                            }
+                        });
+                    })
+                    .catch(rej);
             })
             .catch(rej);
     })

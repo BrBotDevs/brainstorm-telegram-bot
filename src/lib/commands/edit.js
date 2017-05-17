@@ -10,7 +10,7 @@ export default {
         const idea_id = match[1];
         const newText = match[2];
 
-        utils.userUtils.hasPermission(utils.permissions.EDIT, user_id, idea_id)
+        utils.user.hasPermission(utils.permissions.EDIT, user_id, idea_id)
             .then(result => {
                 if (result) {
                     idea.select({ id: idea_id })

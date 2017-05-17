@@ -10,7 +10,7 @@ export default {
         const user_id = msg.from.id;
         const idea_id = match[1];
 
-        utils.userUtils.hasPermission(utils.permissions.DELETE, user_id, idea_id)
+        utils.user.hasPermission(utils.permissions.DELETE, user_id, idea_id)
             .then(result => {
                 if (result) {
                     idea.delete({ chatId: chat_id, id: idea_id })

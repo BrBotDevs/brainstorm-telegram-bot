@@ -9,7 +9,7 @@ export default {
         const user_id = msg.from.id;
         const idea_id = match[1];
 
-        utils.userUtils.hasPermission(utils.permissions.MODERATE, user_id, idea_id)
+        utils.user.hasPermission(utils.permissions.MODERATE, user_id, idea_id)
             .then(result => {
                 if (result) {
                     idea.select({ id: idea_id })
